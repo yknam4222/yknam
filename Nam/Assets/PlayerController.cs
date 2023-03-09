@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
     //복사할 총알 원본
     public GameObject BulletPrefab;
 
+    //복사할 FX 원본
+    public GameObject fxPrefab;
+
+    public GameObject[] stageBack = new GameObject[7];
+
     //복제된 총알의 저장 공간
     private List<GameObject> Bullets = new List<GameObject>();
 
@@ -55,6 +60,9 @@ public class PlayerController : MonoBehaviour
         onDead = false;
 
         Direction = 1.0f;
+
+        for (int i = 0; i < 7; ++i)
+            stageBack[i] = GameObject.Find(i.ToString());
     }
 
     // 유니티 기본 제공 함수
@@ -103,7 +111,7 @@ public class PlayerController : MonoBehaviour
             OnJump();
 
         //구르기
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.C))
             OnDash();
 
         //사망
@@ -112,6 +120,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+            OnAttack();
             //총알원본을 복제한다.
             GameObject Obj = Instantiate(BulletPrefab);
 
@@ -126,6 +135,9 @@ public class PlayerController : MonoBehaviour
 
             //총알의 스크립트내부의 방향번수를 현재 플레이어의 방향변수로 설정한다.
             Controller.Direction = new Vector3(Direction, 0.0f, 0.0f);
+
+            //총알 스크립트내부의 FX Prefab을 설정한다.
+            Controller.fxPrefab = fxPrefab;
 
             //총알의 SpriteRenderer을 받아온다.
             SpriteRenderer bulletRenderer = Obj.GetComponent<SpriteRenderer>();
@@ -142,8 +154,9 @@ public class PlayerController : MonoBehaviour
         //animator.SetFloat("Climb", Ver);
 
         //실제 플레이어를 움직인다.
-        if(!onDead)
-            transform.position += Movement;
+
+        //offset box
+        //transform.position += Movement;
     }
 
     private void OnAttack()
