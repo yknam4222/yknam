@@ -15,7 +15,6 @@ public class BulletController : MonoBehaviour
 
     //총알이 날아가야 할 방향
     public Vector3 Direction { get; set; }
-
     private void Start()
     {
         //초기값
@@ -27,7 +26,7 @@ public class BulletController : MonoBehaviour
     void Update()
     {
         //방향으로 속도만큼 위치를 변경
-        transform.position += Direction * Speed * Time.deltaTime;   
+        transform.position += Direction * Speed * Time.deltaTime;
     }
 
     //충돌체와 물리엔진이 포함된 오브젝트가 다른 충돌체와 충돌한다면 실행되는 함수 
@@ -41,7 +40,7 @@ public class BulletController : MonoBehaviour
 
         //진동효과를 적용할 관리자 생성
         GameObject camera = new GameObject("Camera Test");
-        
+
         //진동 효과 컨트롤러 생성
         camera.AddComponent<CameraController>();
 
@@ -50,10 +49,14 @@ public class BulletController : MonoBehaviour
 
         //collision = 충돌한 대상
         //충돌한 대상을 삭제한다.
-        Destroy(collision.transform.gameObject);
-
+        if(collision.transform.tag != "Wall")
+        {
+            Destroy(collision.transform.gameObject);
+        }
+        else
+            Destroy(this.gameObject);
         //총알의 충돌 횟수가 0이 되면 총알 삭제.
-        if(hp == 0)
+        if (hp == 0)
             Destroy(this.gameObject);
     }
 }

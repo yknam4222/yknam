@@ -21,7 +21,7 @@ public class BackGroundController : MonoBehaviour
 
     // 이미지 이동 속도
     public float Speed;
-    
+
     // 플레이어 정보
     private GameObject player;
     private PlayerController playerController;
@@ -60,23 +60,24 @@ public class BackGroundController : MonoBehaviour
 
     void Update()
     {
-        // 플레이어가 바라보고 있는 방향에 따라 분기됨.
-        if(playerController.DirLeft) // 좌측이동
-        {
+        // 이동정보 셋팅
+        movement = new Vector3(
+            (Input.GetAxisRaw("Horizontal") + offset.x) * Time.deltaTime * Speed,
+            player.transform.position.y + offset.y,
+            0.0f);
 
-        }
-        else if(playerController.DirRight) // 우측이동
+        // 싱글톤
+        // 플레이어가 바라보고 있는 방향에 따라 분기됨.
+        if (ControllerManager.GetInstance().DirLeft) // 좌측이동
         {
-            // 이동정보 셋팅
-            movement = new Vector3(
-                (Input.GetAxisRaw("Horizontal") + offset.x) * Time.deltaTime * Speed, // 싱글톤
-                player.transform.position.y + offset.y,
-                0.0f);
         }
+        else if (ControllerManager.GetInstance().DirRight) // 우측이동
+        {
+             transform.position -= movement;
+        }
+            endPoint -= movement.x;
 
         // 이동정보 적용
-        transform.position -= movement;
-        endPoint -= movement.x;
 
         // 동일한 이미지 복사
         if (player.transform.position.x + (sprite.bounds.size.x * 0.5f) + 1 > endPoint)
@@ -100,7 +101,7 @@ public class BackGroundController : MonoBehaviour
         }
 
         // 종료지점에 도달하면 삭제한다.
-        if(transform.position.x  + sprite.bounds.size.x * 0.5f - 2 < exitPoint)
+        if (transform.position.x + sprite.bounds.size.x * 0.5f - 2 < exitPoint)
             Destroy(this.gameObject);
     }
 }

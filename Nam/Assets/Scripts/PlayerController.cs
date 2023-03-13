@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     //움직이는 속도
     private float Speed;
-    
+
     //움직임을 저장하는 벡터
     private Vector3 Movement;
 
@@ -25,10 +25,10 @@ public class PlayerController : MonoBehaviour
     private bool onDead;
 
     //복사할 총알 원본
-    public GameObject BulletPrefab;
+    private GameObject BulletPrefab;
 
     //복사할 FX 원본
-    public GameObject fxPrefab;
+    private GameObject fxPrefab;
 
     public GameObject[] stageBack = new GameObject[7];
 
@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
 
         // player의 SpriteRenderer을 받아온다.
         spriteRenderer = this.GetComponent<SpriteRenderer>();
+
+        // [Resources] 폴더에서 사용할 리소스를 들고온다.
+        BulletPrefab = Resources.Load("Prefabs/Bullet") as GameObject;
+        fxPrefab = Resources.Load("Prefabs/Fx/Smoke") as GameObject;
     }
 
     // 유니티 기본 제공 함수
@@ -79,42 +83,64 @@ public class PlayerController : MonoBehaviour
         float Hor = Input.GetAxisRaw("Horizontal"); // -1, 0, 1 셋 중에 하나 반환
         //float Ver = Input.GetAxis("Vertical"); // -` ~ 1 까지 실수로 반환
 
-        //Hor이 0이라면 멈춰있는 상태이기 때문에 예외처리를 해줌.
-        if (Hor != 0)
-            Direction = Hor;
-        else
-        {
-            DirLeft = false;
-            DirRight = false;
-        }
-        //플레이어가 바라보고있는 방향에 따라 이미지 플립 설정
-        if (Direction < 0)
-        {
-            spriteRenderer.flipX =  true;
-
-            //실제 플레이어를 움직인다.
-            transform.position += Movement;
-        }
-        else if (Direction > 0)
-        { 
-            spriteRenderer.flipX = false;
-        }
-
         //입력받은 값으로 플레이어를 움직인다.
-        Movement =  new Vector3(
-        Hor * Time.deltaTime * Speed, 
-       // Ver * Time.deltaTime * Speed, 
+        Movement = new Vector3(
+        Hor * Time.deltaTime * Speed,
+        // Ver * Time.deltaTime * Speed, 
         0.0f,
         0.0f);
 
+        //Hor이 0이라면 멈춰있는 상태이기 때문에 예외처리를 해줌.
+        if (Hor != 0)
+            Direction = Hor;
+
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        {
+            //플레이어의 좌표가 0보다 작을 때 플레이어만 움직인다.
+            if (transform.position.x < 0)
+                transform.position += Movement;
+            else 
+            { 
+            ControllerManager.GetInstance().DirRight = true;
+            ControllerManager.GetInstance().DirLeft = false;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        {
+            ControllerManager.GetInstance().DirRight = false;
+            ControllerManager.GetInstance().DirLeft = true;
+
+            //플레이어의 좌표가 -15.0 보다 클 때
+            if(transform.position.x > -15.0f)
+                transform.position += Movement; 
+        }
+
+        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            ControllerManager.GetInstance().DirRight = false;
+            ControllerManager.GetInstance().DirLeft = false;
+        }
+
+        //플레이어가 바라보고있는 방향에 따라 이미지 플립 설정
+        if (Direction < 0)
+        {
+            spriteRenderer.flipX = DirLeft = true;
+
+            //실제 플레이어를 움직인다.
+            
+        }
+        else if (Direction > 0)
+        {
+            spriteRenderer.flipX = false;
+            DirRight = true;
+        }
+
+
         // spriteRenderer.flipX = (Hor < 0) ? true : false;
-        if (Input.GetKey(KeyCode.LeftArrow))
-            DirLeft = true;
-        else if (Input.GetKey(KeyCode.RightArrow))
-              DirRight = true;
 
         //공격
-        if (Input.GetKey(KeyCode.LeftControl)) 
+        if (Input.GetKey(KeyCode.LeftControl))
             OnAttack();
 
         //피격
@@ -168,7 +194,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat("Speed", Hor);
         //animator.SetFloat("Climb", Ver);
 
-        
+
     }
 
     private void OnAttack()

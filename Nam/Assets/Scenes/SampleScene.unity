@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 115625064}
   m_Layer: 0
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -687,8 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b4062ab73265d4aae0a6bd8dfd9954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 8899585751726542763, guid: c2d6fad43db33064e9dd95615115610c, type: 3}
-  fxPrefab: {fileID: 1892078723244562, guid: e309cfe308fb9024a94131facff4e185, type: 3}
   stageBack:
   - {fileID: 0}
   - {fileID: 0}
@@ -697,6 +695,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  DirLeft: 0
+  DirRight: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,7 +1087,7 @@ GameObject:
   - component: {fileID: 1820260672}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
