@@ -63,7 +63,7 @@ public class BackGroundController : MonoBehaviour
         // 이동정보 셋팅
         movement = new Vector3(
             (Input.GetAxisRaw("Horizontal") + offset.x) * Time.deltaTime * Speed,
-            player.transform.position.y + offset.y,
+            0.0f,
             0.0f);
 
         // 싱글톤
@@ -74,8 +74,8 @@ public class BackGroundController : MonoBehaviour
         else if (ControllerManager.GetInstance().DirRight) // 우측이동
         {
              transform.position -= movement;
+             endPoint -= movement.x;
         }
-            endPoint -= movement.x;
 
         // 이동정보 적용
 

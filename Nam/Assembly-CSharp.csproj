@@ -71,15 +71,17 @@
     <Compile Include="Assets\99. Resource\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\99. Resource\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_Translate.cs" />
+    <Compile Include="Assets\Scripts\ControllerManager.cs" />
     <Compile Include="Assets\99. Resource\JMO Assets\Cartoon FX (legacy)\Demo\Assets\CFX_Demo_New.cs" />
     <Compile Include="Assets\99. Resource\JMO Assets\Cartoon FX (legacy)\Scripts\CFX_LightFlicker.cs" />
-    <Compile Include="Assets\Scripts\ControllerManager.cs" />
+    <Compile Include="Assets\Scripts\EnemyManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX (legacy)\Shaders\CFX3 Multiply Color.shader" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Glow.shader" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Ubershader.shader" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_SETTINGS.cginc" />
+    <None Include="Assets\99. Resource\Bringer Of Death\License.txt" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX (legacy)\CartoonFX Free.txt" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR.cginc" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\Readme Cartoon FX Remaster FREE.txt" />
@@ -88,6 +90,7 @@
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Procedural Ring.shader" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_URP.cginc" />
     <None Include="Assets\99. Resource\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Distortion.shader" />
+    <None Include="Assets\99. Resource\Bringer Of Death\Contact.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

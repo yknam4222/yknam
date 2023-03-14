@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     //복사할 FX 원본
     private GameObject fxPrefab;
 
+    //추후 List로 변경
     public GameObject[] stageBack = new GameObject[7];
 
     //복제된 총알의 저장 공간
@@ -81,14 +82,15 @@ public class PlayerController : MonoBehaviour
 
         // Input GetAxis = -1 ~ +1 사이의 값을 반환함.
         float Hor = Input.GetAxisRaw("Horizontal"); // -1, 0, 1 셋 중에 하나 반환
-        //float Ver = Input.GetAxis("Vertical"); // -` ~ 1 까지 실수로 반환
+        float Ver = Input.GetAxisRaw("Vertical"); // -` ~ 1 까지 실수로 반환
 
         //입력받은 값으로 플레이어를 움직인다.
         Movement = new Vector3(
-        Hor * Time.deltaTime * Speed,
-        // Ver * Time.deltaTime * Speed, 
-        0.0f,
-        0.0f);
+            Hor * Time.deltaTime * Speed,
+            Ver * Time.deltaTime * (Speed * 0.5f),
+            0.0f);
+
+        transform.position += new Vector3(0.0f, Movement.y, 0.0f);
 
         //Hor이 0이라면 멈춰있는 상태이기 때문에 예외처리를 해줌.
         if (Hor != 0)
@@ -265,6 +267,11 @@ public class PlayerController : MonoBehaviour
 
         onDead = true;
         animator.SetTrigger("Dead");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print("Coll");
     }
 }
 
