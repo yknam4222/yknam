@@ -39,7 +39,11 @@ public class PlayerController : MonoBehaviour
     //플레이어가 마지막으로 바라본 방향
     private float Direction;
 
+    [Header("방향")]
+    
+    [Tooltip("왼쪽")]
     public bool DirLeft;
+    [Tooltip("오른쪽")]
     public bool DirRight;
 
     private void Awake()
@@ -52,7 +56,8 @@ public class PlayerController : MonoBehaviour
 
         // [Resources] 폴더에서 사용할 리소스를 들고온다.
         BulletPrefab = Resources.Load("Prefabs/Bullet") as GameObject;
-        fxPrefab = Resources.Load("Prefabs/Fx/Smoke") as GameObject;
+        //fxPrefab = Resources.Load("Prefabs/Fx/Smoke") as GameObject;
+        fxPrefab = Resources.Load("Prefabs/Fx/Hit") as GameObject;
     }
 
     // 유니티 기본 제공 함수
